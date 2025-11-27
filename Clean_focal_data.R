@@ -30,7 +30,7 @@ focal <- read.csv("focal.CSV",1) %>%  # June 2022 to October 2022
 # ---- Add observation nb and duration ----
 {
   ffocals <- focal %>%
-  arrange(date, time, idindividual1) %>% 
+  arrange(date, idindividual1, time) %>% 
   mutate(
     DateTime = ymd_hms(paste(date, time)),  # Combine with an arbitrary date
     time_diff = as.numeric(difftime(DateTime, lag(DateTime, default = first(DateTime)), units = "secs")),
@@ -79,4 +79,5 @@ hist(ffocals %>%
 
 # ---- Save output ----
 write.csv(ffocals, "Output/Cleaned_focal.csv", row.names = F)
+
 
